@@ -59,8 +59,7 @@ This value represents the maximum allowable size for each individual chunk summa
 
 Formula:
 
-$$\text{max\_summary\_response\_size} = \frac{(\text{\texttt{num\_ctx}} \times 4) \times 60\%}{\text{\texttt{number\_of\_chunks}}}$$
-
+$$\text{maxSummaryResponseSize} = \frac {(\text{numCtx} \times 4) \times 60\%} {\text{numberOfChunks}} $$
 
 
 This calculation ensures the total size of all summaries won't exceed the available context window. The remaining 40% of the context window is reserved for:
@@ -201,5 +200,5 @@ def create_summary_report(self):
 
 This codebase demonstrates a straightforward approach to content summarization using locally-run LLMs. By breaking down a lengthy podcast into manageable chunks, summarizing each independently, and then recombining them into a cohesive document, it overcomes context window limitations while maintaining semantic coherence.
 
-The implementation shows thoughtful design with good error handling, progress tracking, and performance monitoring. The checkpoint system ensures that long-running processes can be resumed if interrupted, making this suitable for processing lengthy content like Lex Fridman's often multi-hour podcast episodes.
+The implementation shows thoughtful design with error handling, progress tracking, and performance monitoring. The checkpoint system ensures that long-running processes can be resumed if interrupted, making this suitable for processing lengthy content like Lex Fridman's often multi-hour podcast episodes.
 
