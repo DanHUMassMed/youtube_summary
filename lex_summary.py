@@ -16,7 +16,7 @@ def main():
     print(f'Podcast URL: {args.podcast_url}')
     print(f'Working Directory: {args.work_dir}')
     
-    # Let's check that URL can we get a video id?
+    # Let's check if we can extract the video id from this URL?
     try:
         video_id = extract_video_id(args.podcast_url)
     except Exception:

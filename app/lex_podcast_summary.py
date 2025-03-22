@@ -309,11 +309,13 @@ class LexPodcastSummary:
         chunks = self._chunk_transcript()
         print(f"We have {len(chunks)} chunks.")
         print(f"We are use {self.model_name}.")
+        
         # We do not want to exceed to context window when we add all the summary chunks together
         # Rational: We know the context window is made of tokens each token is approximately 4 bytes
         # We can be very conservative and only use 1/2 the context for the summary text
         # The rest can be for detailed prompts
-        max_summary_response_size = (self.num_cxt * 2)/len(chunks)
+        
+        max_summary_response_size = ((self.num_cxt * 4)*0.6)/len(chunks)
         print(f"Max Response size {max_summary_response_size}")
         
         start_time = time.perf_counter()
