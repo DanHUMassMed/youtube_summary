@@ -14,6 +14,11 @@ def set_checkpoint_directory(directory):
     if CHECKPOINT_DIRECTORY:
         os.makedirs(CHECKPOINT_DIRECTORY, exist_ok=True)
 
+def reset_checkpoint_counter():
+    """Reset the checkpoint counter."""
+    global CHECKPOINT_CALL_COUNTER
+    CHECKPOINT_CALL_COUNTER = 0
+
 # Helper function to get the filepath for the checkpoint JSON file
 def get_checkpoint_filepath():
     """Get the path to the checkpoint file based on the configured or default directory."""
@@ -63,7 +68,9 @@ def checkpoint(func):
             result = func(*args, **kwargs)
             
             # If no exception, add the checkpoint and save
-            checkpoints[checkpoint_name] = True
+            args_str = json.dumps([str(arg) for arg in args]).replace('"','')
+            kwargs_str = json.dumps({k: str(v) for k, v in kwargs.items()}).replace('"','')
+            checkpoints[checkpoint_name] = {'args_str':args_str,'kwargs_str':kwargs_str}
             save_checkpoints(checkpoints)
             
             return result  # Return the function result

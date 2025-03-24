@@ -69,7 +69,7 @@ class LexPodcastSummary:
         words = video_title.split()[:2]
         first_two_words = ' '.join(words)
         
-        remove_chars = '",<>:;|='
+        remove_chars = '",<>*?:;|=#^\\/`'
         trans_table = str.maketrans('', '', remove_chars)
         cleaned_text = first_two_words.translate(trans_table)
         cleaned_text = cleaned_text.replace(' ','_')
@@ -258,8 +258,8 @@ class LexPodcastSummary:
 
         thumbnail = f"![Thumbnail](file://{os.path.abspath(self.thumbnail_file_path)})\n\n"
         markdown_content = thumbnail + f"[{self.lex_url}]({self.lex_url})\n\n" + markdown_content
-        
-        output_pdf_path = f"{self.results_dir}/{self.unique_title}.pdf"
+        pdf_title = self._create_unique_title(self.title)
+        output_pdf_path = f"{self.results_dir}/{pdf_title}.pdf"
         html_content = markdown2.markdown(markdown_content)
         HTML(string=html_content).write_pdf(output_pdf_path)
 
